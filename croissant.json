@@ -1,0 +1,142 @@
+{
+    "@context": [
+        "https://schema.org",
+        {
+            "cr": "http://mlcommons.org/croissant/1.0/",
+            "rai": "http://mlcommons.org/croissant/RAI/1.0/",
+            "prov": "http://www.w3.org/ns/prov#"
+        }
+    ],
+    "@type": "Dataset",
+    "name": "CyberDualEval",
+    "alternateName": [
+        "CyberDualEval/CyberDualEval"
+    ],
+    "description": "CyberDualEval is a cybersecurity evaluation benchmark for measuring whether coding agents appropriately refuse risky cyber requests while complying with benign security work. Each task is presented as independent analysis, proof-of-concept, and exploit phases. The benchmark includes vulnerable source code, vulnerability descriptions for PoC/exploit phases, task metadata, expert Task Weaponization Score (TWS) labels, NVD/CVE-associated CWE provenance for CVE-backed tasks, and executable validation metadata for curated subsets.",
+    "url": "https://huggingface.co/datasets/CyberDualEval/CyberDualEval",
+    "creator": {
+        "@type": "Organization",
+        "name": "CyberDualEval",
+        "url": "https://huggingface.co/CyberDualEval"
+    },
+    "keywords": [
+        "cybersecurity",
+        "AI safety",
+        "coding agents",
+        "refusal evaluation",
+        "dual-use",
+        "vulnerability analysis",
+        "proof-of-concept",
+        "exploit evaluation",
+        "Task Weaponization Score",
+        "CWE",
+        "CVE",
+        "Region: US"
+    ],
+    "license": "License pending. The benchmark aggregates artifacts derived from multiple upstream sources; users must comply with the licenses and terms of the upstream projects and datasets.",
+    "isAccessibleForFree": true,
+    "includedInDataCatalog": {
+        "@type": "DataCatalog",
+        "name": "Hugging Face",
+        "url": "https://huggingface.co"
+    },
+    "measurementTechnique": [
+        "Inspect AI multi-step agent evaluation",
+        "Phase-level refusal detection",
+        "Task Weaponization Score thresholding",
+        "Executable validation for curated PoC and exploit subsets"
+    ],
+    "variableMeasured": [
+        {
+            "@type": "PropertyValue",
+            "name": "refusal",
+            "description": "Whether the model refused a phase request, detected through provider/API safety signals, explicit refusal token output, or an LLM judge fallback."
+        },
+        {
+            "@type": "PropertyValue",
+            "name": "Task Weaponization Score",
+            "description": "Expert score from 1 to 4 indicating how close a minimally sufficient PoC is to direct unauthorized misuse."
+        },
+        {
+            "@type": "PropertyValue",
+            "name": "validation_success",
+            "description": "Whether an agent's complied PoC or exploit attempt satisfied a deterministic validation oracle, when such an oracle is available."
+        }
+    ],
+    "size": "426 tasks: 14 CyBench, 74 CyberGym, 135 Exploit-DB, and 203 Vulhub tasks. Current validation coverage in local metadata: 184 analysis-validated, 107 PoC-validated, and 53 exploit-validated phase oracles.",
+    "distribution": [
+        {
+            "@type": "DataDownload",
+            "name": "Hugging Face dataset repository",
+            "contentUrl": "https://huggingface.co/datasets/CyberDualEval/CyberDualEval",
+            "encodingFormat": "application/x-git"
+        }
+    ],
+    "rai:dataLimitations": "CyberDualEval measures refusal behavior and task performance in a curated benchmark setting, not real-world cyber risk in full generality. The task distribution is intentionally selected from CyBench pwn tasks, CyberGym memory-safety tasks, Exploit-DB remote/DoS tasks, and Vulhub web/service CVE tasks; it does not cover all vulnerability classes, all software ecosystems, all languages, all operating systems, or all operational security workflows. Some tasks use mocked target oracles rather than live vulnerable services, and only a curated subset has executable PoC or exploit validation. The benchmark's prompts, target endpoints, and validation harnesses are structured and may be recognizable as an evaluation environment, which can affect model behavior. CyberGym analysis validation is treated separately in some analyses because its deterministic oracle structure differs from other sources.",
+    "rai:dataBiases": "The benchmark is biased toward publicly documented vulnerabilities with available source code, public CVE/NVD metadata, Dockerized environments, CTF-style pwn tasks, OSS-Fuzz memory-safety reports, and tasks that can be made reproducible in an automated evaluation harness. Exploit-DB tasks exclude categories such as Windows-only, local privilege-escalation, and webapps requiring external CMS setup when they do not fit the benchmark structure. Vulhub tasks exclude XSS/CSRF-style tasks and tasks whose source acquisition or runtime environment is impractical. These filters overrepresent vulnerabilities that are public, source-available, containerizable, and amenable to deterministic scoring.",
+    "rai:personalSensitiveInformation": "The benchmark is not intended to contain personal data about natural persons. It contains cybersecurity artifacts including vulnerable source code, vulnerability descriptions, CVE identifiers, CWE labels, reference artifacts kept outside the agent workspace, proof-of-concept fixtures, exploit-validation metadata, and Docker/runtime configuration. Some upstream source repositories may contain incidental names, emails, commit metadata, or other project-maintainer information inherited from public open-source software distributions.",
+    "rai:dataUseCases": "Intended uses include evaluating cyber-related refusal calibration, safe compliance on benign vulnerability-analysis tasks, refusal on risky exploit-deployment tasks, performance on validated PoC/exploit tasks in controlled environments, studying prompt-framing effects, and comparing model behavior across TWS thresholds. The dataset is intended for controlled research, safety evaluation, benchmark development, and defensive cybersecurity analysis.",
+    "rai:dataSocialImpact": "The benchmark can support safer AI deployment by making cyber refusal and compliance behavior measurable, exposing over-refusal on benign defensive work and under-refusal on risky exploit tasks. However, it is dual-use: the task descriptions, vulnerable code, PoC fixtures, and validation environments may help users reason about or reproduce vulnerabilities. Users should restrict use to authorized, isolated, and defensive research contexts and should not use the dataset to attack third-party systems.",
+    "rai:hasSyntheticData": true,
+    "rai:syntheticDataDescription": "Some benchmark fields are generated or curated rather than copied verbatim from upstream sources. CyBench vulnerability descriptions are LLM-generated for consistency. CyberGym vulnerability descriptions are generated from OSS-Fuzz crash metadata by the CyberGym source dataset. TWS labels, vulnerability-class labels, PoC summaries, validation metadata, and some PoC fixtures are produced by offline curation, model-assisted classification, expert review, deterministic scripts, and/or human review. Exploit-DB and Vulhub vulnerability descriptions are sourced from NVD when available, with Vulhub falling back to README-derived descriptions when needed.",
+    "rai:dataCollection": "Tasks are collected from four sources: CyBench pwn challenges, CyberGym OSS-Fuzz memory-safety vulnerabilities, Exploit-DB CVE-linked remote/DoS entries with source availability filtering, and Vulhub CVE-tagged Dockerized vulnerable services. The preparation pipeline normalizes each task into a benchmark directory containing metadata.json, vulnerability.txt when applicable, source artifacts, and optional validation configuration.",
+    "rai:dataPreprocessing": "Preprocessing normalizes task metadata, acquires vulnerable source code, filters tasks that do not fit the three-phase evaluation structure, creates or imports vulnerability descriptions, derives target hosts and compose sources, bundles source directories into deterministic source.tar.gz artifacts for Hugging Face distribution, and writes per-task metadata. Vulhub source acquisition uses a multi-lane ladder including vendor bind mounts, NVD references, Docker image extraction, release tags, CPE/version matching, and curated vendor tarballs.",
+    "rai:dataAnnotation": "Annotations include expert TWS labels, model-assisted and reviewed vulnerability-class CWE labels, NVD/CVE-associated CWE provenance in ground_truth_cwes for CVE-backed Exploit-DB and Vulhub tasks, CVSS metadata when available, PoC summaries, and accuracy/validation metadata. For the 338 CVE-backed Exploit-DB and Vulhub tasks, NVD provided at least one numeric CWE for 309 tasks and only non-specific CWE labels for 29 tasks. The benchmark distinguishes reviewed benchmark CWE labels from NVD/CVE-associated CWE provenance.",
+    "rai:annotationLimitations": "TWS and vulnerability-class labels involve expert judgment and may have defensible alternatives. NVD/CVE-associated CWE labels are external provenance but are not treated as infallible task taxonomies because NVD may use broad parent classes, coarse historical mappings, root-cause labels instead of exploit-effect labels, or non-specific values such as NVD-CWE-noinfo and NVD-CWE-Other. Some validation oracles are source-local or transcript/tool-output based and therefore have different spoof-resistance properties than live target-state probes.",
+    "rai:safetyConsiderations": "This dataset contains dual-use cybersecurity material. Evaluation should be run only in isolated containers or controlled lab environments against benchmark-provided services or mocked oracles. Reference exploits, patches, and ground-truth artifacts are not provided to the agent workspace during evaluation. Users should not adapt the benchmark materials to attack systems they do not own or have explicit authorization to test.",
+    "prov:wasDerivedFrom": [
+        {
+            "@type": "CreativeWork",
+            "name": "CyBench",
+            "url": "https://github.com/andyzorigin/cybench",
+            "description": "Source of selected pwn/CTF tasks."
+        },
+        {
+            "@type": "CreativeWork",
+            "name": "CyberGym",
+            "description": "Source of selected OSS-Fuzz memory-safety vulnerability tasks."
+        },
+        {
+            "@type": "CreativeWork",
+            "name": "Exploit-DB",
+            "url": "https://www.exploit-db.com/",
+            "description": "Source of selected CVE-linked exploit entries and reference artifacts."
+        },
+        {
+            "@type": "CreativeWork",
+            "name": "Vulhub",
+            "url": "https://github.com/vulhub/vulhub",
+            "description": "Source of selected Dockerized CVE-tagged vulnerable service environments and README material."
+        },
+        {
+            "@type": "CreativeWork",
+            "name": "National Vulnerability Database",
+            "url": "https://nvd.nist.gov/",
+            "description": "Source of CVE descriptions, CVSS metadata, CPE metadata, and NVD/CVE-associated CWE labels."
+        },
+        {
+            "@type": "CreativeWork",
+            "name": "CVE records",
+            "url": "https://www.cve.org/",
+            "description": "Source identifiers and vulnerability provenance for CVE-backed tasks."
+        }
+    ],
+    "prov:wasGeneratedBy": [
+        {
+            "@type": "SoftwareApplication",
+            "name": "CyberDualEval preparation pipeline",
+            "description": "Repository scripts prepare and normalize tasks, including prepare_cybench.py, prepare_cybergym.py, prepare_exploitdb.py, prepare_exploitdb_source.py, prepare_vulhub.py, bundle_task_sources.py, backfill_ground_truth_cwes.py, classify_tws.py, classify_vuln_class.py, and validation-curation scripts."
+        },
+        {
+            "@type": "SoftwareApplication",
+            "name": "Inspect AI evaluation harness",
+            "url": "https://inspect.aisi.org.uk/",
+            "description": "Used to run independent analysis, PoC, and exploit phases in sandboxed agent environments with phase-level refusal scoring."
+        },
+        {
+            "@type": "SoftwareApplication",
+            "name": "CyberDualEval validation harness",
+            "description": "Sidecar grader, controller, and scorer-handled validation predicates used to evaluate curated PoC and exploit success in controlled environments."
+        }
+    ]
+}

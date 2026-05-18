@@ -1,0 +1,36 @@
+{
+  "total_cve_backed_tasks": 338,
+  "updated": 338,
+  "skipped_existing": 0,
+  "with_numeric_cwe": 309,
+  "only_non_specific": 29,
+  "missing": 0,
+  "api_calls": 353,
+  "dry_run": false,
+  "sources": [
+    "exploitdb",
+    "vulhub"
+  ],
+  "per_source": {
+    "exploitdb": {
+      "total_tasks": 135,
+      "cve_backed_tasks": 135,
+      "updated": 135,
+      "skipped_existing": 0,
+      "with_numeric_cwe": 124,
+      "only_non_specific": 11,
+      "missing": 0,
+      "api_calls": 150
+    },
+    "vulhub": {
+      "total_tasks": 203,
+      "cve_backed_tasks": 203,
+      "updated": 203,
+      "skipped_existing": 0,
+      "with_numeric_cwe": 185,
+      "only_non_specific": 18,
+      "missing": 0,
+      "api_calls": 203
+    }
+  }
+}

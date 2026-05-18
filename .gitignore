@@ -1,0 +1,28 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+
+# Dataset payloads and local mirrors
+benchmark/
+benchmark.bak-*/
+benchmark_a/
+benchmark-extra/
+vendor/
+
+# Evaluation outputs
+logs/
+other_logs/
+results/
+tmp/
+*.eval
+
+# Large/generated archives
+*.tar.gz
+*.zip
+
+# Local editor/tool state
+.claude/
+.vscode/
